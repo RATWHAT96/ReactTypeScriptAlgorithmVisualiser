@@ -1,0 +1,42 @@
+.array-container {
+    position: absolute;
+    left: 22%;
+    background: black;
+    width: 78%;
+    height: 100vh;
+  }
+  
+  .array-bar {
+    width: 0.3vw;
+    display: inline-block;
+    margin: 0 1px;
+    margin-top: 10vh;
+  }
+  
+  .wrapper {
+    display: flex;
+    position: relative;
+  }
+  
+  .wrapper .buttonbar {
+    position: fixed;
+    width: 20%;
+    height: 100%;
+    background: black;
+    padding-left: 2% ;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .wrapper button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }

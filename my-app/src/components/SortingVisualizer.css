@@ -1,42 +1,55 @@
+.main {
+    display: flex;
+    flex-direction: column;
+}
 .array-container {
-    position: absolute;
-    left: 22%;
-    background: black;
-    width: 78%;
-    height: 100vh;
-  }
+    background: rgb(255, 255, 255);
+    bottom: 0%;
+    border: gray;
+    
+}
   
   .array-bar {
-    width: 0.3vw;
+    width: 1vw;
     display: inline-block;
-    margin: 0 1px;
-    margin-top: 10vh;
+    margin: 0 2px;
   }
   
-  .wrapper {
-    display: flex;
-    position: relative;
-  }
-  
-  .wrapper .buttonbar {
-    position: fixed;
-    width: 20%;
-    height: 100%;
-    background: black;
-    padding-left: 2% ;
+.buttonbar {
+    background: white;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
+    height: 30vh;
   }
-  
-  .wrapper button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
+
+  button {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 2vw;
+    cursor: pointer;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+    outline: none;
+    color: #fff;
+    background-color: teal;
+    border: none;
+    border-radius: 15px;
+    box-shadow: -10px 9px #999;
   }
+
+button:hover {background-color: rgb(0, 192, 192)}
+
+button:active {
+  background-color: rgb(0, 192, 192);
+  box-shadow: 0 5px #666;
+  transform: translateY(5px) translateX(-5px);
+}
+
+@media screen and (max-width: 700px) {
+    button{
+        box-shadow: -2px 3px #999;
+        padding: 5px 15px;
+    }
+}

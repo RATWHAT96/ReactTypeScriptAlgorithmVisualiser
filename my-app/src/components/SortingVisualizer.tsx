@@ -5,16 +5,16 @@ import {getQuickSortAnimations} from '../sortingAlgorithms/getQuickSortAnimation
 import './SortingVisualizer.css';
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 5;
+const ANIMATION_SPEED_MS = 25;
 
 // Change this value for the number of bars (value) in the array.
-const NUMBER_OF_ARRAY_BARS = 100;
+const NUMBER_OF_ARRAY_BARS = 30;
 
 // This is the main color of the array bars.
-const PRIMARY_COLOR = 'turquoise';
+const PRIMARY_COLOR = 'grey';
 
 // This is the color of array bars that are being compared throughout the animations.
-const SECONDARY_COLOR = 'red';
+const SECONDARY_COLOR = 'turquoise';
 
 export default class SortingVisualizer extends React.Component<any, any> {
   constructor(props: any[]) {
@@ -34,7 +34,7 @@ export default class SortingVisualizer extends React.Component<any, any> {
   resetArray() {
     const array = [];
     for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
-      array.push(randomIntFromInterval(2, 90));
+      array.push(randomIntFromInterval(2, 65));
     }
     this.setState({array});
   }
@@ -132,15 +132,7 @@ export default class SortingVisualizer extends React.Component<any, any> {
     const {array} = this.state;
 
     return (
-      <div>
-        <div className="wrapper">
-          <div className="buttonbar">
-            <button onClick={() => this.resetArray()}>Generate New Array</button>
-            <button onClick={() => this.mergeSort()}>Merge Sort</button>
-            <button onClick={() => this.quickSort()}>Quick Sort</button>
-            <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
-          </div>
-        </div>
+      <div className="main">
         <div className="array-container">
           {array.map((value: number, idx: number) => (//.map() function allows you to get index with second parameter
             <div
@@ -151,7 +143,21 @@ export default class SortingVisualizer extends React.Component<any, any> {
                 height: `${value}vh`,
               }}></div>
           ))}
+            <div
+              className="array-bar"
+              style={{
+                backgroundColor: 'white',
+                height: '70vh',
+              }}></div>
         </div>
+        
+          <div className="buttonbar">
+            <button onClick={() => this.resetArray()}>Generate New Array</button>
+            <button onClick={() => this.mergeSort()}>Merge Sort</button>
+            <button onClick={() => this.quickSort()}>Quick Sort</button>
+            <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
+          </div>
+        
       </div>
     );
   }

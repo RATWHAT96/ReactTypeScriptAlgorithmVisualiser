@@ -1,12 +1,12 @@
 import React from 'react';
-import { resetArray, mergeSort, quickSort, bubbleSort, selectionSort } from '../sortingAlgorithms/sortingAlgorithms';
+import { generateArray, mergeSort, quickSort, bubbleSort, selectionSort } from '../sortingAlgorithms/sortingAlgorithms';
 import './SortingVisualizer.css';
 
 // Change this value for the speed of the animations.
 const ANIMATION_SPEED_MS = 25;
 
 // Change this value for the number of bars (value) in the array.
-const NUMBER_OF_ARRAY_BARS = 30;
+const NUMBER_OF_ARRAY_BARS = 100;
 
 // This is the main color of the array bars.
 const PRIMARY_COLOR = 'grey';
@@ -25,7 +25,7 @@ export default class SortingVisualizer extends React.Component<any, any> {
   }
 
   resetArr() {
-    this.setState({array: resetArray(NUMBER_OF_ARRAY_BARS)});
+    this.setState({array: generateArray(NUMBER_OF_ARRAY_BARS)});
   }
 
   //is invoked immediately after a component is mounted (inserted into the tree).

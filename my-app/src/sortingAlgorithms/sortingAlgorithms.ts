@@ -3,7 +3,7 @@ import { getBubbleSortAnimations } from "./getBubbleSortAnimations";
 import {getQuickSortAnimations} from './getQuickSortAnimations';
 import {getSelectionSortAnimations} from './getSelectionSortAnimations';
 
-export function resetArray(numOfArrayBars: number): number[] {
+export function generateArray(numOfArrayBars: number): number[] {
     let arr = [];
     for (let i = 0; i < numOfArrayBars; i++) {
       arr.push(randomIntFromInterval(2, 65));
@@ -41,11 +41,6 @@ export function mergeSort(arr: number[], colorTwo: string, colorOne: string, ani
 
 export function quickSort(arr: number[], colorTwo: string, colorOne: string, animationSpeed: number) {
     const animations = getQuickSortAnimations(arr);
-    for(let i = 0; i < animations.length; i++){
-      console.log(animations[i] + " animation");
-    }
-    console.log("animationsLength:");
-    console.log(animations.length);
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName('array-bar') as HTMLCollectionOf<HTMLElement>;
 
@@ -101,8 +96,6 @@ export function selectionSort(arr: number[], colorTwo: string, colorOne: string,
       const isColorChange = i % 3 !== 2;
       if (isColorChange) {
         const [barOneIdx, barTwoIdx] = animations[i];
-        console.log("One index " + barOneIdx);
-        console.log("Two index " + barTwoIdx);
         const barOneStyle = arrayBars[barOneIdx].style;
         const barTwoStyle = arrayBars[barTwoIdx].style;
         const color = i % 3 === 0 ? colorTwo : colorOne;

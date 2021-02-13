@@ -6,7 +6,7 @@ import {getSelectionSortAnimations} from './getSelectionSortAnimations';
 export function generateArray(numOfArrayBars: number): number[] {
     let arr = [];
     for (let i = 0; i < numOfArrayBars; i++) {
-      arr.push(randomIntFromInterval(2, 65));
+      arr.push(randomIntFromInterval(2, 55));
     }
     return arr;
 }

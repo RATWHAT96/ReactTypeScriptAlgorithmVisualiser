@@ -2,52 +2,54 @@
     display: flex;
     flex-direction: column;
 }
+
+/*Array Visualiser Graph*/
 .array-container {
     background: rgb(255, 255, 255);
     bottom: 0%;
-    border: gray;
-    
+    border: gray;    
 }
   
-  .array-bar {
-    width: 3vw;
-    display: inline-block;
-    margin: 0 2px;
-  }
-  
+.array-bar {
+  width: 3vw;
+  display: inline-block;
+  margin: 0 2px;
+}
+
+/*Button Styling*/
 .buttonbar {
-    background: white;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: row;
-    height: 20vh;
-    width: 90vw;
-    flex-wrap: wrap;
-    margin-top: 5vh;
-  }
+  background: white;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  height: 20vh;
+  width: 90vw;
+  flex-wrap: wrap;
+  margin-top: 5vh;
+}
 
 .centreDiv {
     display: flex;
     justify-content: center;
-    width: 90vw;
-    margin-left: 5vw;
 }
 
-  button {
-    display: inline-block;
-    padding: 8px 18px;
-    font-size: 2vw;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: teal;
-    border: none;
-    border-radius: 15px;
-    box-shadow: -5px 6px #999;
-  }
+button {
+  display: inline-block;
+  padding: 8px 18px;
+  font-size: 30px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: teal;
+  border: none;
+  border-radius: 15px;
+  box-shadow: -5px 6px #999;
+  flex-wrap: wrap;
+  margin: 2vw 0;
+}
 
 button:hover {background-color: rgb(0, 192, 192)}
 
@@ -57,19 +59,26 @@ button:active {
   transform: translateY(5px) translateX(-5px);
 }
 
-.algoInfoBox{
-  width: 70vw;
-  margin-left: 15vw;
-  height: 10vh;
-  margin-top: 5vh;
-}
+@media screen and (max-width: 850px) {
+  .algoInfoBox {
+    margin: 5vh 0;
+  }
 
+  .buttonbar {
+    height: 150px;
+  }
+
+}
 
 @media screen and (max-width: 700px) {
-    button{
-        box-shadow: -2px 3px #999;
-        padding: 5px 15px;
-    }
+  button{
+    box-shadow: -2px 3px #999;
+    padding: 5px 15px;
+    font-size: 15px;
+  }    
 }
+
+
+
 
 

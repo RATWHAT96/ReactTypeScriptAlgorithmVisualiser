@@ -4,23 +4,16 @@ import { generateArray, mergeSort, quickSort, bubbleSort, selectionSort } from '
 import './SortingVisualizer.css';
 import SortDataDisplay from './sortingAlgorithms/SortDataDisplay';
 
-// Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 200;
-
-// Change this value for the number of bars (value) in the array.
-const NUMBER_OF_ARRAY_BARS = 10;
-
-// This is the main color of the array bars.
+const ANIMATION_SPEED_MS = 100;
+const NUMBER_OF_ARRAY_BARS = 20;
 const PRIMARY_COLOR = 'grey';
-
-// This is the color of array bars that are being compared throughout the animations.
 const SECONDARY_COLOR = 'turquoise';
 
 export default class SortingVisualizer extends React.Component<any, any> {
   constructor(props: any[]) {
     super(props);
 
-    //this.state,array will contain the height values of the array
+    //this.state array will contain the height values of the array
     this.state = {
       array: [],
     };
@@ -30,13 +23,10 @@ export default class SortingVisualizer extends React.Component<any, any> {
     this.setState({array: generateArray(NUMBER_OF_ARRAY_BARS)});
   }
 
-  //is invoked immediately after a component is mounted (inserted into the tree).
   componentDidMount() {
     this.resetArr();
   }
 
-  
-  
   render() {
     const {array} = this.state;
 
@@ -44,7 +34,7 @@ export default class SortingVisualizer extends React.Component<any, any> {
       <Router>
       <div className="main">
         <div className="array-container">
-          {array.map((value: number, idx: number) => (//.map() function allows you to get index with second parameter
+          {array.map((value: number, idx: number) => (
             <div
               className="array-bar"
               key={idx}

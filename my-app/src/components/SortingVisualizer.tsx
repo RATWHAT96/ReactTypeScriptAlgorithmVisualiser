@@ -53,10 +53,10 @@ export default class SortingVisualizer extends React.Component<any, any> {
         <div className="centreDiv">
           <div className="buttonbar">
             <button onClick={() => this.resetArr()}>New Array</button>
-            <button onClick={() => mergeSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/mergeSort" style={{ textDecoration: 'none', color: 'white' } }>Merge</Link></button>
-            <button onClick={() => quickSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/quickSort" style={{ textDecoration: 'none', color: 'white' }}>Quick</Link></button>
-            <button onClick={() => bubbleSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/bubbleSort" style={{ textDecoration: 'none', color: 'white' } }>Bubble</Link></button>
-            <button onClick={() => selectionSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/SelectionSort" style={{ textDecoration: 'none', color: 'white' } }>Selection</Link></button>
+            <button onClick={() => mergeSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/ReactTypeScriptAlgorithmVisualiser/mergeSort" style={{ textDecoration: 'none', color: 'white' } }>Merge</Link></button>
+            <button onClick={() => quickSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/ReactTypeScriptAlgorithmVisualiser/quickSort" style={{ textDecoration: 'none', color: 'white' }}>Quick</Link></button>
+            <button onClick={() => bubbleSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/ReactTypeScriptAlgorithmVisualiser/bubbleSort" style={{ textDecoration: 'none', color: 'white' } }>Bubble</Link></button>
+            <button onClick={() => selectionSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/ReactTypeScriptAlgorithmVisualiser/SelectionSort" style={{ textDecoration: 'none', color: 'white' } }>Selection</Link></button>
           </div>
         </div>
         <div className="algoInfoBox">

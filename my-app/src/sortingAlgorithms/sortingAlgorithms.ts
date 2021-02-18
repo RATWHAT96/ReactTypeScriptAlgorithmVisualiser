@@ -6,7 +6,7 @@ import {getSelectionSortAnimations} from './getSelectionSortAnimations';
 export function generateArray(numOfArrayBars: number): number[] {
     let arr = [];
     for (let i = 0; i < numOfArrayBars; i++) {
-      arr.push(randomIntFromInterval(2, 55));
+      arr.push(randomIntFromInterval(4, 55));
     }
     return arr;
 }
@@ -34,6 +34,7 @@ export function mergeSort(arr: number[], colorTwo: string, colorOne: string, ani
           const [barOneIdx, newHeight] = animations[i];
           const barOneStyle = arrayBars[barOneIdx].style;
           barOneStyle.height = `${newHeight}vh`;
+          arrayBars[barOneIdx].innerHTML = `${newHeight}`;
         }, i * animationSpeed);
       }
     }
@@ -55,6 +56,7 @@ export function quickSort(arr: number[], colorTwo: string, colorOne: string, ani
       } else if (isColorChangeTwo) {
         setTimeout(() => {
           barStyle.height = `${newHeight}vh`;
+          arrayBars[barIdx].innerHTML = `${newHeight}`;
         }, i * animationSpeed);
       } else {
         setTimeout(() => {
@@ -85,7 +87,9 @@ export function bubbleSort(arr: number[], colorTwo: string, colorOne: string, an
           const barOneStyle = arrayBars[barOneIdx].style;
           const barTwoStyle = arrayBars[barTwoIdx].style;
           barOneStyle.height = `${newHeightOne}vh`;
+          arrayBars[barOneIdx].innerHTML = `${newHeightOne}`;
           barTwoStyle.height = `${newHeightTwo}vh`;
+          arrayBars[barTwoIdx].innerHTML = `${newHeightTwo}`;
         }, i * animationSpeed);
       }
     }
@@ -112,7 +116,9 @@ export function selectionSort(arr: number[], colorTwo: string, colorOne: string,
           const barOneStyle = arrayBars[barOneIdx].style;
           const barTwoStyle = arrayBars[barTwoIdx].style;
           barOneStyle.height = `${newHeightOne}vh`;
+          arrayBars[barOneIdx].innerHTML = `${newHeightOne}`;
           barTwoStyle.height = `${newHeightTwo}vh`;
+          arrayBars[barTwoIdx].innerHTML = `${newHeightTwo}`;
         }, i * animationSpeed);
       }
     }

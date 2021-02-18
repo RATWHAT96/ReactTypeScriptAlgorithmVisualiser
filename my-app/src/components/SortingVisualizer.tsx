@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
 import { generateArray, mergeSort, quickSort, bubbleSort, selectionSort } from '../sortingAlgorithms/sortingAlgorithms';
 import './SortingVisualizer.css';
 import SortDataDisplay from './sortingAlgorithms/SortDataDisplay';
 
-const ANIMATION_SPEED_MS = 100;
-const NUMBER_OF_ARRAY_BARS = 20;
+const ANIMATION_SPEED_MS = 200;
+const NUMBER_OF_ARRAY_BARS = 15;
 const PRIMARY_COLOR = 'grey';
 const SECONDARY_COLOR = 'turquoise';
 

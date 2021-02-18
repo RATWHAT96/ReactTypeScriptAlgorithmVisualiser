@@ -39,18 +39,18 @@ export const SortingVisualizer = () => {
         <div className="centreDiv">
           <div className="buttonbar">
             <button onClick={() => resetArr()}>New Array</button>
-            <button onClick={() => mergeSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/ReactTypeScriptAlgorithmVisualiser/mergeSort" style={{ textDecoration: 'none', color: 'white' } }>Merge</Link></button>
-            <button onClick={() => quickSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/ReactTypeScriptAlgorithmVisualiser/quickSort" style={{ textDecoration: 'none', color: 'white' }}>Quick</Link></button>
-            <button onClick={() => bubbleSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/ReactTypeScriptAlgorithmVisualiser/bubbleSort" style={{ textDecoration: 'none', color: 'white' } }>Bubble</Link></button>
-            <button onClick={() => selectionSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/ReactTypeScriptAlgorithmVisualiser/SelectionSort" style={{ textDecoration: 'none', color: 'white' } }>Selection</Link></button>
+            <Link to="/mergeSort" style={{ textDecoration: 'none', color: 'white' } }><button onClick={() => mergeSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}>Merge</button></Link>
+            <Link to="/quickSort" style={{ textDecoration: 'none', color: 'white' }}><button onClick={() => quickSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}>Quick</button></Link>
+            <Link to="/bubbleSort" style={{ textDecoration: 'none', color: 'white' } }><button onClick={() => bubbleSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}>Bubble</button></Link>
+            <Link to="/SelectionSort" style={{ textDecoration: 'none', color: 'white' } }><button onClick={() => selectionSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}>Selection</button></Link>
           </div>
         </div>
         <div className="algoInfoBox">
             <Switch>
-              <Route path="/ReactTypeScriptAlgorithmVisualiser/mergeSort" component={() => <SortDataDisplay name="Merge Sort" bestCase = 'n * log(n)' averageCase = 'n * log(n)' worstCase = 'n * log(n)' space = 'n'/>}/>
-              <Route path="/ReactTypeScriptAlgorithmVisualiser/quickSort" component={() => <SortDataDisplay name="Quick Sort" bestCase = 'n * log(n)' averageCase = 'n * log(n)' worstCase = 'n ^ 2' space = 'log(n)'/>} />
-              <Route path="/ReactTypeScriptAlgorithmVisualiser/bubbleSort" component={() => <SortDataDisplay name="Bubble Sort" bestCase = 'n' averageCase = 'n ^ 2' worstCase = 'n ^ 2' space = '1'/>} />
-              <Route path="/ReactTypeScriptAlgorithmVisualiser/selectionSort" component={() => <SortDataDisplay name="Selection Sort" bestCase = 'n ^ 2' averageCase = 'n ^ 2' worstCase = 'n ^ 2' space = '1'/>} />
+              <Route path="/mergeSort" component={() => <SortDataDisplay name="Merge Sort" bestCase = 'n * log(n)' averageCase = 'n * log(n)' worstCase = 'n * log(n)' space = 'n'/>}/>
+              <Route path="/quickSort" component={() => <SortDataDisplay name="Quick Sort" bestCase = 'n * log(n)' averageCase = 'n * log(n)' worstCase = 'n ^ 2' space = 'log(n)'/>} />
+              <Route path="/bubbleSort" component={() => <SortDataDisplay name="Bubble Sort" bestCase = 'n' averageCase = 'n ^ 2' worstCase = 'n ^ 2' space = '1'/>} />
+              <Route path="/selectionSort" component={() => <SortDataDisplay name="Selection Sort" bestCase = 'n ^ 2' averageCase = 'n ^ 2' worstCase = 'n ^ 2' space = '1'/>} />
             </Switch>
         </div>
       </div>

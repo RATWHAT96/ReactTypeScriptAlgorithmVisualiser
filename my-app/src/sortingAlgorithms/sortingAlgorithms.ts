@@ -44,21 +44,23 @@ export function quickSort(arr: number[], colorTwo: string, colorOne: string, ani
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName('array-bar') as HTMLCollectionOf<HTMLElement>;
 
-      setTimeout(() => {
-        const [newHeight, barIdx] = animations[i];
-        const barStyle = arrayBars[barIdx].style;
-        barStyle.backgroundColor = colorTwo;
+      const isColorChangeOne = i % 3 == 0;
+      const isColorChangeTwo = i % 3 == 1;
+      const [newHeight, barIdx] = animations[i];
+      const barStyle = arrayBars[barIdx].style;
+      if (isColorChangeOne) {
         setTimeout(() => {
-          const [newHeight, barIdx] = animations[i];
-          const barStyle = arrayBars[barIdx].style;
-          barStyle.height = `${newHeight}vh`;
-          setTimeout(() => {
-            const [newHeight, barIdx] = animations[i];
-            const barStyle = arrayBars[barIdx].style;
-            barStyle.backgroundColor = colorOne;
-          }, i * animationSpeed);  
+          barStyle.backgroundColor = colorTwo;
         }, i * animationSpeed);
-      }, i * animationSpeed);
+      } else if (isColorChangeTwo) {
+        setTimeout(() => {
+          barStyle.height = `${newHeight}vh`;
+        }, i * animationSpeed);
+      } else {
+        setTimeout(() => {
+          barStyle.backgroundColor = colorOne;
+        }, i * animationSpeed);
+      }
     }
   }
 

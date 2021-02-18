@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
 import { generateArray, mergeSort, quickSort, bubbleSort, selectionSort } from '../sortingAlgorithms/sortingAlgorithms';
 import './SortingVisualizer.css';
@@ -9,27 +9,19 @@ const NUMBER_OF_ARRAY_BARS = 20;
 const PRIMARY_COLOR = 'grey';
 const SECONDARY_COLOR = 'turquoise';
 
-export default class SortingVisualizer extends React.Component<any, any> {
-  constructor(props: any[]) {
-    super(props);
+export const SortingVisualizer = () => {
 
-    //this.state array will contain the height values of the array
-    this.state = {
-      array: [],
-    };
+  const [array, setArray] = useState<number[]>([0]);
+
+  const resetArr = () => {
+    const newArr = generateArray(NUMBER_OF_ARRAY_BARS)
+    setArray(newArr);
   }
 
-  resetArr() {
-    this.setState({array: generateArray(NUMBER_OF_ARRAY_BARS)});
-  }
-
-  componentDidMount() {
-    this.resetArr();
-  }
-
-  render() {
-    const {array} = this.state;
-
+  useEffect(() => {
+    resetArr();
+  }, []) 
+  
     return (
       <Router>
       <div className="main">
@@ -41,18 +33,12 @@ export default class SortingVisualizer extends React.Component<any, any> {
               style={{
                 backgroundColor: PRIMARY_COLOR,
                 height: `${value}vh`,
-              }}></div>
+              }}> {value} </div>
           ))}
-            <div
-              className="array-bar"
-              style={{
-                backgroundColor: 'white',
-                height: '60vh',
-              }}></div>
         </div>
         <div className="centreDiv">
           <div className="buttonbar">
-            <button onClick={() => this.resetArr()}>New Array</button>
+            <button onClick={() => resetArr()}>New Array</button>
             <button onClick={() => mergeSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/ReactTypeScriptAlgorithmVisualiser/mergeSort" style={{ textDecoration: 'none', color: 'white' } }>Merge</Link></button>
             <button onClick={() => quickSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/ReactTypeScriptAlgorithmVisualiser/quickSort" style={{ textDecoration: 'none', color: 'white' }}>Quick</Link></button>
             <button onClick={() => bubbleSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS)}><Link to="/ReactTypeScriptAlgorithmVisualiser/bubbleSort" style={{ textDecoration: 'none', color: 'white' } }>Bubble</Link></button>
@@ -70,6 +56,5 @@ export default class SortingVisualizer extends React.Component<any, any> {
       </div>
       </Router>
     );
-  }
 }
 

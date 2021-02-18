@@ -16,6 +16,10 @@
   margin: 0 2px;
 }
 
+.array-bar p {
+  font-size: 2vw;
+}
+
 /*Button Styling*/
 .buttonbar {
   background: white;

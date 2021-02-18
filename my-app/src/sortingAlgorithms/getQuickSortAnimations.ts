@@ -8,6 +8,8 @@ export function getQuickSortAnimations(array: number[]): any[] {
     return animations;
 }
 
+
+
 function quickSortHelper(array: number[], startIdx: number): number[]{
     if (array.length <= 1) {
         return array;
@@ -17,7 +19,6 @@ function quickSortHelper(array: number[], startIdx: number): number[]{
     var pivot = array[array.length-1];
     var leftArr = [];
     var rightArr = []; 
-
     
     for (let i = 0; i < array.length-1; i++){
         if (array[i] < pivot){
@@ -31,14 +32,20 @@ function quickSortHelper(array: number[], startIdx: number): number[]{
     
     for(let i = 0; i < lAL; i++){
         animations.push([leftArr[i], (startIdx + i)]);
+        animations.push([leftArr[i], (startIdx + i)]);
+        animations.push([leftArr[i], (startIdx + i)]);
     }
 
     if(pivot !== 0){
         animations.push([pivot, lAL + startIdx]);
+        animations.push([pivot, lAL + startIdx]);
+        animations.push([pivot, lAL + startIdx]);
     }
 
     for(let i = 0; i < rightArr.length; i++){
-        animations.push([rightArr[i], (lAL + startIdx + 1 + i)]);
+        animations.push([rightArr[i], ( startIdx + lAL + 1 + i)]);
+        animations.push([rightArr[i], ( startIdx + lAL + 1 + i)]);
+        animations.push([rightArr[i], ( startIdx + lAL + 1 + i)]);
     } 
 
     if(lAL == 0 ){

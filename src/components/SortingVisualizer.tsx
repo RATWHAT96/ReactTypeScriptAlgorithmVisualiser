@@ -1,11 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
-import { generateArray, mergeSort, quickSort, bubbleSort, selectionSort } from '../sortingAlgorithms/sortingAlgorithms';
+import { generateArray, generateArrayWithNums, mergeSort, quickSort, bubbleSort, selectionSort } from '../sortingAlgorithms/sortingAlgorithms';
 import './SortingVisualizer.css';
 import SortDataDisplay from './sortingAlgorithms/SortDataDisplay';
 
-const ANIMATION_SPEED_MS = 20;
-const NUMBER_OF_ARRAY_BARS = 15;
+const ANIMATION_SPEED_MS = 200;
+const NUMBER_OF_ARRAY_BARS = 10;
 const PRIMARY_COLOR = 'grey';
 const SECONDARY_COLOR = 'turquoise';
 
@@ -21,12 +21,10 @@ export const SortingVisualizer = () => {
   }
 
   const resetHeightNums = () => {
-    const arrayBars = document.getElementsByClassName('array-bar') as HTMLCollectionOf<HTMLElement>;
-    for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
-      var x =  arrayBars[i].style.height; 
-      arrayBars[i].innerHTML = x.slice(0,2)
-    }
+    const newArr = generateArrayWithNums(NUMBER_OF_ARRAY_BARS);
+    setArray(newArr);
   }
+
 
   useEffect(() => {
     resetArr();
@@ -61,10 +59,19 @@ export const SortingVisualizer = () => {
               height: `${value}vh`,
             }}> {value} </div>
         ))}
+        <div
+            style={{
+              backgroundColor: 'white',
+              height: `${55}vh`,
+              color: 'white',
+              width: '1px',
+              display: 'inline-block',
+              margin: '0 2px'
+            }}> 0 </div>
       </div>
       <div className="centreDiv">
         <div className="buttonbar">
-          <button onClick={() => {setSort("reset");setClicked(false); resetArr(); resetHeightNums();}}>New Array</button>
+          <button onClick={() => {setSort("reset");setClicked(false); resetHeightNums();}}>New Array</button>
           <Link to="/mergeSort" style={{ textDecoration: 'none', color: 'white' } }><button disabled={clicked} onClick={() => {setSort("merge"); setClicked(true)}}>Merge</button></Link>
           <Link to="/quickSort" style={{ textDecoration: 'none', color: 'white' }}><button  disabled={clicked} onClick={() => {setSort("quick"); setClicked(true)}}>Quick</button></Link>
           <Link to="/bubbleSort" style={{ textDecoration: 'none', color: 'white' } }><button  disabled={clicked} onClick={() => {setSort("bubble"); setClicked(true);}}>Bubble</button></Link>

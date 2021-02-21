@@ -11,14 +11,11 @@
 }
   
 .array-bar {
-  width: 4vw;
+  width: 6vw;
   display: inline-block;
   margin: 0 2px;
 }
 
-.array-bar p {
-  font-size: 2vw;
-}
 
 /*Button Styling*/
 .buttonbar {
@@ -81,6 +78,8 @@ button:active {
     font-size: 15px;
   }    
 }
+
+
 
 
 

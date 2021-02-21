@@ -3,13 +3,23 @@ import { getBubbleSortAnimations } from "./getBubbleSortAnimations";
 import {getQuickSortAnimations} from './getQuickSortAnimations';
 import {getSelectionSortAnimations} from './getSelectionSortAnimations';
 
-export function generateArray(numOfArrayBars: number): number[] {
+export function generateArrayWithNums(numOfArrayBars: number): number[] {
     let arr = [];
+    const arrayBars = document.getElementsByClassName('array-bar') as HTMLCollectionOf<HTMLElement>;
     for (let i = 0; i < numOfArrayBars; i++) {
-      var x = randomIntFromInterval(10, 55);
+      const x = randomIntFromInterval(10, 55);
       arr.push(x);
+      arrayBars[i].innerHTML = `${x}`; 
     }
     return arr;
+}
+
+export function generateArray(numOfArrayBars: number): number[] {
+  let arr = [];
+  for (let i = 0; i < numOfArrayBars; i++) {
+    arr.push(randomIntFromInterval(10, 55));
+  }
+  return arr;
 }
 
 export function randomIntFromInterval(min: number, max: number): number {

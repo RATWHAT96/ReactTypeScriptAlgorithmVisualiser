@@ -13,7 +13,7 @@ function App() {
         <Navbar/>
         <Switch>
           <Route path="/sort"><SortingVisualizer/></Route>
-          <Route path="/search"><SearchingVisualizer/></Route>
+          <Route path="/path"><SearchingVisualizer/></Route>
           <Route path="/structure"><DataStructures/></Route>        
         </Switch>
       </Router>

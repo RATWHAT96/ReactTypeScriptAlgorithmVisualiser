@@ -37,7 +37,7 @@ export function mergeSort(arr: number[], colorTwo: string, colorOne: string, ani
           arrayBars[barOneIdx].innerHTML = `${newHeight}`;
         }, i * animationSpeed);
       }
-    }
+    } 
   }
 
 export function quickSort(arr: number[], colorTwo: string, colorOne: string, animationSpeed: number) {

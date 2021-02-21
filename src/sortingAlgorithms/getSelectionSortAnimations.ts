@@ -1,5 +1,3 @@
-import { addEmitHelper } from "typescript";
-
 export function getSelectionSortAnimations(arr: number[]): any[]{
     let animations = [];
 

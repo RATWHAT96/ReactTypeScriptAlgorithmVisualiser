@@ -1,11 +1,11 @@
 export const MenuItems = [
     {
-        title: 'Sorting Algorithms',
+        title: 'Sorting',
         url: 'sort',
         cName: 'nav-links'
     },
     {
-        title: 'Search Algorithms',
+        title: 'Path Finding',
         url: 'search',
         cName: 'nav-links'
     },

@@ -127,9 +127,5 @@
         color: #6568F4;
         transition: 250ms;
     }
-
-    Button {
-        display: none;
-    }
 }
 

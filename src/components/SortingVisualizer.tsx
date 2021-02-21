@@ -20,6 +20,14 @@ export const SortingVisualizer = () => {
     setArray(newArr);
   }
 
+  const resetHeightNums = () => {
+    const arrayBars = document.getElementsByClassName('array-bar') as HTMLCollectionOf<HTMLElement>;
+    for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
+      var x =  arrayBars[i].style.height; 
+      arrayBars[i].innerHTML = x.slice(0,2)
+    }
+  }
+
   useEffect(() => {
     resetArr();
   }, []) 
@@ -56,7 +64,7 @@ export const SortingVisualizer = () => {
       </div>
       <div className="centreDiv">
         <div className="buttonbar">
-          <button onClick={() => {setSort("reset");setClicked(false); resetArr();}}>New Array</button>
+          <button onClick={() => {setSort("reset");setClicked(false); resetArr(); resetHeightNums();}}>New Array</button>
           <Link to="/mergeSort" style={{ textDecoration: 'none', color: 'white' } }><button disabled={clicked} onClick={() => {setSort("merge"); setClicked(true)}}>Merge</button></Link>
           <Link to="/quickSort" style={{ textDecoration: 'none', color: 'white' }}><button  disabled={clicked} onClick={() => {setSort("quick"); setClicked(true)}}>Quick</button></Link>
           <Link to="/bubbleSort" style={{ textDecoration: 'none', color: 'white' } }><button  disabled={clicked} onClick={() => {setSort("bubble"); setClicked(true);}}>Bubble</button></Link>

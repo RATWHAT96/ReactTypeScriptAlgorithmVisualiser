@@ -1,6 +1,6 @@
 import React from 'react';
-import {SortingVisualizer} from './components/SortingVisualizer';
-import {SearchingVisualizer} from './components/SearchingVisualizer';
+import {SortingVisualizer} from './components/SortingVisualizer/SortingVisualizer';
+import {SearchingVisualizer} from './components/PathfindingVisualizer/SearchingVisualizer';
 import {DataStructures} from './components/DataStructures';
 import {Navbar} from './components/Navbar/Navbar'
 import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';

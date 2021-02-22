@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
-import { getMergeSortAnimations } from './sortingAlgorithms/getMergeSortAnimations';
-import { getQuickSortAnimations } from './sortingAlgorithms/getQuickSortAnimations';
-import { getSelectionSortAnimations } from './sortingAlgorithms/getSelectionSortAnimations';
-import { getBubbleSortAnimations } from './sortingAlgorithms/getBubbleSortAnimations';
-import { generateArray, bubbleSort, mergeSort, quickSort, selectionSort} from './sortingAlgorithms/sortingAlgorithms';
-import SortingVisualizer from './components/SortingVisualizer';
+import { getMergeSortAnimations } from './components/sortingAlgorithms/getMergeSortAnimations';
+import { getQuickSortAnimations } from './components/sortingAlgorithms/getQuickSortAnimations';
+import { getSelectionSortAnimations } from './components/sortingAlgorithms/getSelectionSortAnimations';
+import { getBubbleSortAnimations } from './components/sortingAlgorithms/getBubbleSortAnimations';
+import { generateArray, bubbleSort, mergeSort, quickSort, selectionSort} from './components/sortingAlgorithms/sortingAlgorithms';
+import SortingVisualizer from './components/SortingVisualizer/SortingVisualizer';
 
  
 test('Animation Algorithm Test', () => {

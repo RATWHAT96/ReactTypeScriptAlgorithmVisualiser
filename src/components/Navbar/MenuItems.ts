@@ -6,7 +6,7 @@ export const MenuItems = [
     },
     {
         title: 'Path Finding',
-        url: 'search',
+        url: 'path',
         cName: 'nav-links'
     },
     {

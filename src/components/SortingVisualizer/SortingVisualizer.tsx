@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
 import { generateArray, generateArrayWithNums, mergeSort, quickSort, bubbleSort, selectionSort } from '../sortingAlgorithms/sortingAlgorithms';
 import './SortingVisualizer.css';
-import SortDataDisplay from './sortingAlgorithms/SortDataDisplay';
+import {SortDataDisplay} from '../sortingAlgoData/SortDataDisplay';
 
 const ANIMATION_SPEED_MS = 200;
 const NUMBER_OF_ARRAY_BARS = 10;

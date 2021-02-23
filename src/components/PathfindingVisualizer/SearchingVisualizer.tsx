@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {Node} from './Node/Node';
 import {dijkstra, getNodesInShortestPathOrder} from '../searchAlgorithms/dijkstra';
+import {aStar} from '../searchAlgorithms/aStar'
 import './PathfindingVisualizer.css';
 
-const START_NODE_ROW = 10;
-const START_NODE_COL = 10;
-const FINISH_NODE_ROW = 10;
-const FINISH_NODE_COL = 30;
+const START_NODE_ROW = 19;
+const START_NODE_COL = 0;
+const FINISH_NODE_ROW = 0;
+const FINISH_NODE_COL = 39;
 
 interface nodeData{
   col: number;
@@ -51,14 +52,14 @@ export const SearchingVisualizer = () => {
       if (i === visitedNodesInOrder.length) {
         setTimeout(() => {
           animateShortestPath(nodesInShortestPathOrder);
-        }, 10 * i);
+        }, 30 * i);
         return;
       }
       setTimeout(() => {
         const node = visitedNodesInOrder[i];
         let x = document.getElementById(`node-${node.row}-${node.col}`)
         x!.className = 'node node-visited';
-      }, 10 * i);
+      }, 30 * i);
     }
   }
 
@@ -72,11 +73,18 @@ export const SearchingVisualizer = () => {
     }
   }
 
-    // figure out why this is not working properly when button is pressed
   const visualizeDijkstra = () => {
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+  }
+
+  const visualizeAStar = () => {
+    const startNode = grid[START_NODE_ROW][START_NODE_COL];
+    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+    const visitedNodesInOrder = aStar(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
@@ -113,6 +121,9 @@ export const SearchingVisualizer = () => {
         <button onClick={() => visualizeDijkstra()}>
           Dijkstra's
         </button>
+        <button onClick={() => visualizeAStar()}>
+          A*
+        </button>
       </>
     );
 }
@@ -136,6 +147,8 @@ const createNode = (col:any, row:any) => {
     isStart: row === START_NODE_ROW && col === START_NODE_COL,
     isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
     distance: Infinity,
+    manhatanDistance: Infinity,
+    totalCost: Infinity,
     isVisited: false,
     isWall: false,
     previousNode: null,

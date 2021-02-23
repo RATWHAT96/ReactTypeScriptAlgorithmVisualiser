@@ -13,7 +13,7 @@ export const SortingVisualizer = () => {
 
   const [array, setArray] = useState<number[]>([0]);
   const [clicked, setClicked] = useState(false);
-  const [sort, setSort] = useState("")
+  const [sort, setSort] = useState("");
 
   const resetArr = () => {
     const newArr = generateArray(NUMBER_OF_ARRAY_BARS);

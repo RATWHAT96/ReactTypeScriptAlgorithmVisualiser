@@ -89,6 +89,27 @@ export const SearchingVisualizer = () => {
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
+  const resetGrid = (grid:any) => {
+    //need to reset node distance, total cost and the node colors
+    for (const row of grid) {
+      for (const node of row) {
+        if (node.isVisited){
+          node.distance = Infinity;
+          node.totalCost = Infinity;
+          let x = document.getElementById(`node-${node.row}-${node.col}`)
+          if (node.isStart){
+            x!.className =  'node node-start';
+          } else if (node.isFinish){
+            x!.className =  'node node-finish';
+          } else {
+            x!.className =  'node';
+          }
+          node.isVisited = false;
+        }
+      }
+    }
+  }
+
     return (
       <>
         
@@ -118,6 +139,9 @@ export const SearchingVisualizer = () => {
             );
           })}
         </div>
+        <button onClick={() => resetGrid(grid)}>
+          Reset Grid
+        </button>
         <button onClick={() => visualizeDijkstra()}>
           Dijkstra's
         </button>

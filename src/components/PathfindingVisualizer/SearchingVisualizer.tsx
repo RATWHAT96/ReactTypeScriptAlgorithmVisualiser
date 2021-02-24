@@ -24,6 +24,10 @@ interface nodeData{
 export const SearchingVisualizer = () => {
   const [grid, setGrid] = useState<any[][]>([['']]);
   const [mouseIsPressed, setPress] = useState(false);
+  const [startPressed, setSPress] = useState(false);
+  const [finishPressed, setFPress] = useState(false);
+  const [startPosition, setSPosition] = useState([START_NODE_ROW, START_NODE_COL]);
+  const [finishPosition, setFPosition] = useState([FINISH_NODE_ROW, FINISH_NODE_COL]);
 
   useEffect(() => {
     const newGrid = getInitialGrid()
@@ -32,19 +36,40 @@ export const SearchingVisualizer = () => {
 
 
   const handleMouseDown = (row: any, col: any) => {
-    const newGrid = getNewGridWithWallToggled(grid, row, col);
-    setGrid(newGrid);
+    const node = grid[row][col];
+    if (node.isStart){
+      setSPress(true);
+      setSPosition([row, col]);
+    } else if (node.isFinish) {
+      setFPress(true);
+      setFPosition([row, col]);
+    } else {
+      const newGrid = getNewGridWithWallToggled(grid, row, col);
+      setGrid(newGrid);
+    }
     setPress(true);
   }
 
   const handleMouseEnter = (row: any, col: any) => {
     if (!mouseIsPressed) return;
-    const newGrid = getNewGridWithWallToggled(grid, row, col);
-    setGrid(newGrid);
+    if(startPressed){
+      const newGrid = getNewGridWithStartToggled(grid, row, col, startPosition);
+      setGrid(newGrid);
+      setSPosition([row, col]);
+    } else if (finishPressed){
+      const newGrid = getNewGridWithFinishToggled(grid, row, col, finishPosition);
+      setGrid(newGrid);
+      setFPosition([row, col]);
+    } else {
+      const newGrid = getNewGridWithWallToggled(grid, row, col);
+      setGrid(newGrid);
+    }
   }
 
   const handleMouseUp = () => {
     setPress(false);
+    setSPress(false);
+    setFPress(false);
   }
 
   const animateDijkstra = (visitedNodesInOrder: any, nodesInShortestPathOrder: any): any => {
@@ -74,16 +99,20 @@ export const SearchingVisualizer = () => {
   }
 
   const visualizeDijkstra = () => {
-    const startNode = grid[START_NODE_ROW][START_NODE_COL];
-    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+    const [sRow, sCol] = startPosition;
+    const startNode = grid[sRow][sCol];
+    const [fRow, fCol] = finishPosition;
+    const finishNode = grid[fRow][fCol];
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
   const visualizeAStar = () => {
-    const startNode = grid[START_NODE_ROW][START_NODE_COL];
-    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+    const [sRow, sCol] = startPosition;
+    const startNode = grid[sRow][sCol];
+    const [fRow, fCol] = finishPosition;
+    const finishNode = grid[fRow][fCol];
     const visitedNodesInOrder = aStar(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
@@ -110,46 +139,45 @@ export const SearchingVisualizer = () => {
     }
   }
 
-    return (
-      <>
-        
-        <div className="grid">
-          {grid.map((row, rowIdx) => {
-            return (
-              <div key={rowIdx} className="nodeRow">
-                {row.map((node:any, nodeIdx:any) => {
-                  const {row, col, isFinish, isStart, isWall} = node;
-                  return (
-                    <Node
-                      key={nodeIdx}
-                      col={col}
-                      isFinish={isFinish}
-                      isStart={isStart}
-                      isWall={isWall}
-                      mouseIsPressed={mouseIsPressed}
-                      onMouseDown={(row:any, col:any) => handleMouseDown(row, col)}
-                      onMouseEnter={(row:any, col:any) =>
-                        handleMouseEnter(row, col)
-                      }
-                      onMouseUp={() => handleMouseUp()}
-                      row={row}></Node>
-                  );
-                })}
-              </div>
-            );
-          })}
-        </div>
-        <button onClick={() => resetGrid(grid)}>
-          Reset Grid
-        </button>
-        <button onClick={() => visualizeDijkstra()}>
-          Dijkstra's
-        </button>
-        <button onClick={() => visualizeAStar()}>
-          A*
-        </button>
-      </>
-    );
+  return (
+    <>
+      <div className="grid">
+        {grid.map((row, rowIdx) => {
+          return (
+            <div key={rowIdx} className="nodeRow">
+              {row.map((node:any, nodeIdx:any) => {
+                const {row, col, isFinish, isStart, isWall} = node;
+                return (
+                  <Node
+                    key={nodeIdx}
+                    col={col}
+                    isFinish={isFinish}
+                    isStart={isStart}
+                    isWall={isWall}
+                    mouseIsPressed={mouseIsPressed}
+                    onMouseDown={(row:any, col:any) => handleMouseDown(row, col)}
+                    onMouseEnter={(row:any, col:any) =>
+                      handleMouseEnter(row, col)
+                    }
+                    onMouseUp={() => handleMouseUp()}
+                    row={row}></Node>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+      <button onClick={() => resetGrid(grid)}>
+        Reset Grid
+      </button>
+      <button onClick={() => visualizeDijkstra()}>
+        Dijkstra's
+      </button>
+      <button onClick={() => visualizeAStar()}>
+        A*
+      </button>
+    </>
+  );
 }
 
 const getInitialGrid = ():any[][] => {
@@ -187,5 +215,41 @@ const getNewGridWithWallToggled = (grid:any, row:any, col:any) => {
     isWall: !node.isWall,
   };
   newGrid[row][col] = newNode;
+  return newGrid;
+};
+
+const getNewGridWithStartToggled = (grid:any, newRow:any, newCol:any, startPosition:number[]) => {
+  const newGrid = grid.slice();
+  const [oldRow, oldCol] = startPosition;
+  let node = newGrid[oldRow][oldCol];
+  let newNode = {
+    ...node,
+    isStart: !node.isStart,
+  };
+  newGrid[oldRow][oldCol] = newNode;
+  node = newGrid[newRow][newCol];
+  newNode = {
+    ...node,
+    isStart: !node.isStart,
+  };
+  newGrid[newRow][newCol] = newNode;
+  return newGrid;
+};
+
+const getNewGridWithFinishToggled = (grid:any, newRow:any, newCol:any, finishPosition:number[]) => {
+  const newGrid = grid.slice();
+  const [oldRow, oldCol] = finishPosition;
+  let node = newGrid[oldRow][oldCol];
+  let newNode = {
+    ...node,
+    isFinish: !node.isFinish,
+  };
+  newGrid[oldRow][oldCol] = newNode;
+  node = newGrid[newRow][newCol];
+  newNode = {
+    ...node,
+    isFinish: !node.isFinish,
+  };
+  newGrid[newRow][newCol] = newNode;
   return newGrid;
 };

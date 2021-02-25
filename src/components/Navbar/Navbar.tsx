@@ -11,8 +11,8 @@ export const Navbar = () => {
     }
 
     return(
-        <nav className="NavbarItems">
-            <h1 className="navbar-logo">Tech Interview</h1>
+        <nav className="navbar">
+            <h1 className="navbar-logo"><a style={{textDecoration: 'none', color:'white'}} href="/">Tech Interview</a></h1>
             <div className="menu-icon" onClick={handleClick}>
                 <i className={clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
             </div>

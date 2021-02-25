@@ -25,11 +25,11 @@ export const SortingVisualizer = () => {
     setArray(newArr);
   }
 
-
   useEffect(() => {
     resetArr();
   }, []) 
 
+  //used to disbale sort buttons when a sort is running & and enable once new array is pressed
   useEffect(() => {
     if(sort=="merge"){
       mergeSort(array, SECONDARY_COLOR, PRIMARY_COLOR, ANIMATION_SPEED_MS);

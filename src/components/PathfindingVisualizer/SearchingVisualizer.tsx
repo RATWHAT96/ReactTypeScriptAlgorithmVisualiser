@@ -30,12 +30,34 @@ export const SearchingVisualizer = () => {
   const [startPosition, setSPosition] = useState([START_NODE_ROW, START_NODE_COL]);
   const [finishPosition, setFPosition] = useState([FINISH_NODE_ROW, FINISH_NODE_COL]);
 
+  //creates and renders grid upon page load
   useEffect(() => {
     const newGrid = getInitialGrid()
     setGrid(newGrid);
   }, []) 
 
+  const resetGrid = (grid:any) => {
+    //need to reset node distance, total cost and the node colors
+    for (const row of grid) {
+      for (const node of row) {
+        if (node.isVisited){
+          node.distance = Infinity;
+          node.totalCost = Infinity;
+          let x = document.getElementById(`node-${node.row}-${node.col}`)
+          if (node.isStart){
+            x!.className =  'node node-start';
+          } else if (node.isFinish){
+            x!.className =  'node node-finish';
+          } else {
+            x!.className =  'node';
+          }
+          node.isVisited = false;
+        }
+      }
+    }
+  }
 
+  /*mouse handlers for grid interactions*/
   const handleMouseDown = (row: any, col: any) => {
     const node = grid[row][col];
     if (node.isStart){
@@ -73,6 +95,7 @@ export const SearchingVisualizer = () => {
     setFPress(false);
   }
 
+  /*algorithms to visualise and animate pathfinding algorithms*/
   const animateDijkstra = (visitedNodesInOrder: any, nodesInShortestPathOrder: any): any => {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
@@ -119,30 +142,9 @@ export const SearchingVisualizer = () => {
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
-  const resetGrid = (grid:any) => {
-    //need to reset node distance, total cost and the node colors
-    for (const row of grid) {
-      for (const node of row) {
-        if (node.isVisited){
-          node.distance = Infinity;
-          node.totalCost = Infinity;
-          let x = document.getElementById(`node-${node.row}-${node.col}`)
-          if (node.isStart){
-            x!.className =  'node node-start';
-          } else if (node.isFinish){
-            x!.className =  'node node-finish';
-          } else {
-            x!.className =  'node';
-          }
-          node.isVisited = false;
-        }
-      }
-    }
-  }
-
   return (
     <>
-    <div className="buttonbar">
+      <div className="buttonbar">
         <div className="key">
           <p>Start Node</p>
           <div className="node node-start"></div>
@@ -193,6 +195,7 @@ export const SearchingVisualizer = () => {
   );
 }
 
+/*Helper function*/
 const getInitialGrid = ():any[][] => {
   const grid = [];
   for (let row = 0; row < 18; row++) {

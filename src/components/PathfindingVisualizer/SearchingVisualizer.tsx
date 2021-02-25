@@ -107,7 +107,13 @@ export const SearchingVisualizer = () => {
       setTimeout(() => {
         const node = visitedNodesInOrder[i];
         let x = document.getElementById(`node-${node.row}-${node.col}`)
-        x!.className = 'node node-visited';
+        if(node.isStart == true){
+          x!.className = 'node node-start';
+        } else if (node.isFinish) {
+          x!.className = 'node node-finish';
+        } else {
+          x!.className = 'node node-visited';
+        }
       }, 30 * i);
     }
   }
@@ -117,7 +123,13 @@ export const SearchingVisualizer = () => {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
         let x = document.getElementById(`node-${node.row}-${node.col}`)
-        x!.className =  'node node-shortest-path';
+        if(node.isStart == true){
+          x!.className = 'node node-start';
+        } else if (node.isFinish) {
+          x!.className = 'node node-finish';
+        } else {
+          x!.className =  'node node-shortest-path';
+        }
       }, 50 * i);
     }
   }

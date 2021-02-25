@@ -142,6 +142,34 @@ export const SearchingVisualizer = () => {
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
+  /*animate preset*/
+  const animatePresetOne = () => {
+    const gridOne = [];
+    for (let row = 0; row < 17; row++) {
+      const currentRow = [];
+      for (let col = 0; col < 49; col++) {
+        const node = createNode(col, row);
+        if((row % 2 == 0 && col % 2 == 0) || (row % 3 == 0 && col % 3 == 0)){
+          node.isWall = true;
+          let x = document.getElementById(`node-${node.row}-${node.col}`)
+          x!.className = 'node node-wall'
+        } 
+        node.isStart = false;
+        node.isFinish = false;
+        currentRow.push(node);
+      }
+      gridOne.push(currentRow);
+    }
+    const start = gridOne[13][0];
+    start.isStart = true;
+    const finish = gridOne[1][48];
+    finish.isFinish = true;
+    setSPosition([13, 0]);
+    setFPosition([1, 48]);
+
+    setGrid(gridOne);
+  }
+
   return (
     <>
       <div className="buttonbar">
@@ -190,6 +218,9 @@ export const SearchingVisualizer = () => {
         <button onClick={() => resetGrid(grid)}> Reset Grid </button>
         <button onClick={() => visualizeDijkstra()}> Dijkstra's </button>
         <button onClick={() => visualizeAStar()}> A* </button>
+        <button onClick={() => animatePresetOne()}> Preset 1 </button>
+        <button onClick={() => visualizeAStar()}> Preset 2 </button>
+        <button onClick={() => visualizeAStar()}> Preset 3 </button>
       </div>
     </>
   );

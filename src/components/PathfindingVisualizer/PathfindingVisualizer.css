@@ -1,7 +1,55 @@
-.grid {
-  margin: 10vh 0;
-}
 
 .nodeRow {
   height: 1.5vw;
+}
+
+.buttonbar {
+  background: white;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  height: 12vh;
+  width: 100vw;
+  flex-wrap: wrap;
+  margin: 5vh 0;
+}
+
+.key {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
+
+.key p {
+  width: 14vw;
+  font-size: 2vw;
+}
+
+
+@media screen and (max-width: 420px) {
+  .grid{
+    transform: rotate(90deg);
+    height: 36vw;
+  }
+
+  .grid_container{
+    display: flex;
+    justify-content: center;  
+    align-items: center; 
+    height: 76vw; 
+    width: 100vw;
+  }
+
+  .buttonbar {
+    background: white;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    height: 12vh;
+    width: 100vw;
+    flex-wrap: wrap;
+    margin: 2.5vh 0;
+  }
 }

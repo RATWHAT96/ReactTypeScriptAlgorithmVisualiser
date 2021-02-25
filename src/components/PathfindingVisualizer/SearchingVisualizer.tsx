@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {Node} from './Node/Node';
+import './Node/Node.css';
 import {dijkstra, getNodesInShortestPathOrder} from '../searchAlgorithms/dijkstra';
 import {aStar} from '../searchAlgorithms/aStar'
 import './PathfindingVisualizer.css';
 
-const START_NODE_ROW = 19;
+const START_NODE_ROW = 17;
 const START_NODE_COL = 0;
 const FINISH_NODE_ROW = 0;
-const FINISH_NODE_COL = 39;
+const FINISH_NODE_COL = 29;
 
 interface nodeData{
   col: number;
@@ -141,50 +142,62 @@ export const SearchingVisualizer = () => {
 
   return (
     <>
-      <div className="grid">
-        {grid.map((row, rowIdx) => {
-          return (
-            <div key={rowIdx} className="nodeRow">
-              {row.map((node:any, nodeIdx:any) => {
-                const {row, col, isFinish, isStart, isWall} = node;
-                return (
-                  <Node
-                    key={nodeIdx}
-                    col={col}
-                    isFinish={isFinish}
-                    isStart={isStart}
-                    isWall={isWall}
-                    mouseIsPressed={mouseIsPressed}
-                    onMouseDown={(row:any, col:any) => handleMouseDown(row, col)}
-                    onMouseEnter={(row:any, col:any) =>
-                      handleMouseEnter(row, col)
-                    }
-                    onMouseUp={() => handleMouseUp()}
-                    row={row}></Node>
-                );
-              })}
-            </div>
-          );
-        })}
+    <div className="buttonbar">
+        <div className="key">
+          <p>Start Node</p>
+          <div className="node node-start"></div>
+        </div>
+        <div className="key">
+          <p>Finish Node</p>
+          <div className="node node-finish"></div>
+        </div>
+        <div className="key">
+          <p>Wall Node</p>
+          <div className="node node-wall"></div>
+        </div>
       </div>
-      <button onClick={() => resetGrid(grid)}>
-        Reset Grid
-      </button>
-      <button onClick={() => visualizeDijkstra()}>
-        Dijkstra's
-      </button>
-      <button onClick={() => visualizeAStar()}>
-        A*
-      </button>
+      <div className="grid_container">
+        <div className="grid">
+          {grid.map((row, rowIdx) => {
+            return (
+              <div key={rowIdx} className="nodeRow">
+                {row.map((node:any, nodeIdx:any) => {
+                  const {row, col, isFinish, isStart, isWall} = node;
+                  return (
+                    <Node
+                      key={nodeIdx}
+                      col={col}
+                      isFinish={isFinish}
+                      isStart={isStart}
+                      isWall={isWall}
+                      mouseIsPressed={mouseIsPressed}
+                      onMouseDown={(row:any, col:any) => handleMouseDown(row, col)}
+                      onMouseEnter={(row:any, col:any) =>
+                        handleMouseEnter(row, col)
+                      }
+                      onMouseUp={() => handleMouseUp()}
+                      row={row}></Node>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="buttonbar">
+        <button onClick={() => resetGrid(grid)}> Reset Grid </button>
+        <button onClick={() => visualizeDijkstra()}> Dijkstra's </button>
+        <button onClick={() => visualizeAStar()}> A* </button>
+      </div>
     </>
   );
 }
 
 const getInitialGrid = ():any[][] => {
   const grid = [];
-  for (let row = 0; row < 20; row++) {
+  for (let row = 0; row < 18; row++) {
     const currentRow = [];
-    for (let col = 0; col < 40; col++) {
+    for (let col = 0; col <50; col++) {
       currentRow.push(createNode(col, row));
     }
     grid.push(currentRow);

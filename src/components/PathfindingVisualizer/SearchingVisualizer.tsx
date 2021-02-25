@@ -60,6 +60,7 @@ export const SearchingVisualizer = () => {
   /*mouse handlers for grid interactions*/
   const handleMouseDown = (row: any, col: any) => {
     const node = grid[row][col];
+    console.log( row + " " + col)
     if (node.isStart){
       setSPress(true);
       setSPosition([row, col]);
@@ -182,6 +183,114 @@ export const SearchingVisualizer = () => {
     setGrid(gridOne);
   }
 
+  const animatePresetTwo = () => {
+    const gridOne = [];
+    for (let row = 0; row < 17; row++) {
+      const currentRow = [];
+      let i = 0;
+      for (let col = 0; col < 49; col++) {
+        const node = createNode(col, row);
+        if(i%6 == 0 || row % 4 == 0){
+          node.isWall = true;
+          let x = document.getElementById(`node-${node.row}-${node.col}`)
+          x!.className = 'node node-wall' 
+        }
+        node.isStart = false;
+        node.isFinish = false;
+        currentRow.push(node);
+        i+=1;
+      }
+      gridOne.push(currentRow);
+    }
+
+    for (let row = 0; row < 17; row++) {
+      for (let col = 0; col < 49; col++) {
+        if((row % 4 == 0 && col % 3 == 0) || (row % 3 == 0 && col % 6 == 0) ){
+          const x = gridOne[row][col];
+          x.isWall = false;
+          let y = document.getElementById(`node-${x.row}-${x.col}`)
+          y!.className = 'node' 
+        } 
+      }
+    }
+
+    const additionalWallNodes = [[3,6], [9,6], [4,9], [6,12], [15,12], [8,15], [9,24], [15,24], [6,24], [3,30], [8,27], [9,42], [3,42], [6, 42]];
+    
+    for(let i = 0; i< additionalWallNodes.length; i++){
+      const [r, c] = additionalWallNodes[i];
+      const x = gridOne[r][c];
+      x.isWall = true;
+      let y = document.getElementById(`node-${x.row}-${x.col}`);
+      y!.className = 'node node-wall'; 
+    }
+
+
+    const start = gridOne[15][1];
+    start.isStart = true;
+    const finish = gridOne[1][47];
+    finish.isFinish = true;
+    setSPosition([15, 1]);
+    setFPosition([1, 47]);
+
+    setGrid(gridOne);
+  }
+
+  const animatePresetThree = () => {
+    const gridOne = [];
+    for (let row = 0; row < 17; row++) {
+      const currentRow = [];
+      let i = 0;
+      for (let col = 0; col < 49; col++) {
+        const node = createNode(col, row);
+        if(i%3 == 0 || row % 4 == 0){
+          node.isWall = true;
+          let x = document.getElementById(`node-${node.row}-${node.col}`)
+          x!.className = 'node node-wall' 
+        }
+        node.isStart = false;
+        node.isFinish = false;
+        currentRow.push(node);
+        i+=1;
+      }
+      gridOne.push(currentRow);
+    }
+
+    for (let row = 0; row < 17; row++) {
+      for (let col = 0; col < 49; col++) {
+        if((row % 4 == 0 && col % 3 == 0) || (row % 3 == 0 && col % 6 == 0) ){
+          const x = gridOne[row][col];
+          x.isWall = false;
+          let y = document.getElementById(`node-${x.row}-${x.col}`)
+          y!.className = 'node' 
+        } 
+      }
+    }
+
+    
+    const additionalWallNodes = [[15,3], [12,8], [10,3], [8,2], [6,3], [2,9], [4,7], [2,15], 
+                                 [5,18], [8,20], [11,21], [13,21], [12,26], [9, 27], [8,29],
+                                 [6,27], [4,23], [2,27], [2,33], [2,39], [4,41], [8,41], [10,45],
+                                 [8,47], [4,46], [10,15], [12,11], [7,12], [15,27], [13,33], 
+                                 [12,35], [7,36], [15,39], [13,45], [12,47]];
+    
+    for(let i = 0; i< additionalWallNodes.length; i++){
+      const [r, c] = additionalWallNodes[i];
+      const x = gridOne[r][c];
+      x.isWall = false;
+      let y = document.getElementById(`node-${x.row}-${x.col}`);
+      y!.className = 'node'; 
+    }
+
+    const start = gridOne[15][1];
+    start.isStart = true;
+    const finish = gridOne[1][47];
+    finish.isFinish = true;
+    setSPosition([15, 1]);
+    setFPosition([1, 47]);
+
+    setGrid(gridOne);
+  }
+
   return (
     <>
       <div className="buttonbar">
@@ -231,8 +340,8 @@ export const SearchingVisualizer = () => {
         <button onClick={() => visualizeDijkstra()}> Dijkstra's </button>
         <button onClick={() => visualizeAStar()}> A* </button>
         <button onClick={() => animatePresetOne()}> Preset 1 </button>
-        <button onClick={() => visualizeAStar()}> Preset 2 </button>
-        <button onClick={() => visualizeAStar()}> Preset 3 </button>
+        <button onClick={() => animatePresetTwo()}> Preset 2 </button>
+        <button onClick={() => animatePresetThree()}> Preset 3 </button>
       </div>
     </>
   );

@@ -29,12 +29,31 @@ export const SearchingVisualizer = () => {
   const [finishPressed, setFPress] = useState(false);
   const [startPosition, setSPosition] = useState([START_NODE_ROW, START_NODE_COL]);
   const [finishPosition, setFPosition] = useState([FINISH_NODE_ROW, FINISH_NODE_COL]);
+  const [clicked, setClicked] = useState(false);
+  const [sort, setSort] = useState("");
+
 
   //creates and renders grid upon page load
   useEffect(() => {
     const newGrid = getInitialGrid()
     setGrid(newGrid);
   }, []) 
+
+  useEffect(() => {
+    if(sort=="dijkstra"){
+      visualizeDijkstra();
+    } else if (sort=="a*") {
+      visualizeAStar();
+    } else if (sort=="preset1") {
+      animatePresetOne();
+    } else if (sort=="preset2") {
+      animatePresetTwo();
+    } else if (sort=="selection") {
+      animatePresetThree();
+    } else {
+      
+    }
+  }, [clicked]) 
 
   const resetGrid = (grid:any) => {
     //need to reset node distance, total cost and the node colors
@@ -60,7 +79,6 @@ export const SearchingVisualizer = () => {
   /*mouse handlers for grid interactions*/
   const handleMouseDown = (row: any, col: any) => {
     const node = grid[row][col];
-    console.log( row + " " + col)
     if (node.isStart){
       setSPress(true);
       setSPosition([row, col]);
@@ -77,12 +95,18 @@ export const SearchingVisualizer = () => {
   const handleMouseEnter = (row: any, col: any) => {
     if (!mouseIsPressed) return;
     if(startPressed){
-      const newGrid = getNewGridWithStartToggled(grid, row, col, startPosition);
-      setGrid(newGrid);
+      const [oldRow, oldCol] = startPosition;
+      let node = grid[oldRow][oldCol];
+      node.isStart = !node.isStart;
+      node = grid[row][col];
+      node.isStart = !node.isStart;
       setSPosition([row, col]);
     } else if (finishPressed){
-      const newGrid = getNewGridWithFinishToggled(grid, row, col, finishPosition);
-      setGrid(newGrid);
+      const [oldRow, oldCol] = startPosition;
+      let node = grid[oldRow][oldCol];
+      node.isFinish = !node.isFinish;
+      node = grid[row][col];
+      node.isFinish = !node.isFinish;
       setFPosition([row, col]);
     } else {
       const newGrid = getNewGridWithWallToggled(grid, row, col);
@@ -90,7 +114,7 @@ export const SearchingVisualizer = () => {
     }
   }
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (row: any, col: any) => {
     setPress(false);
     setSPress(false);
     setFPress(false);
@@ -323,10 +347,8 @@ export const SearchingVisualizer = () => {
                       isWall={isWall}
                       mouseIsPressed={mouseIsPressed}
                       onMouseDown={(row:any, col:any) => handleMouseDown(row, col)}
-                      onMouseEnter={(row:any, col:any) =>
-                        handleMouseEnter(row, col)
-                      }
-                      onMouseUp={() => handleMouseUp()}
+                      onMouseEnter={(row:any, col:any) => handleMouseEnter(row, col)}
+                      onMouseUp={(row:any, col:any) => handleMouseUp(row, col)}
                       row={row}></Node>
                   );
                 })}
@@ -336,12 +358,12 @@ export const SearchingVisualizer = () => {
         </div>
       </div>
       <div className="buttonbar">
-        <button onClick={() => resetGrid(grid)}> Reset Grid </button>
-        <button onClick={() => visualizeDijkstra()}> Dijkstra's </button>
-        <button onClick={() => visualizeAStar()}> A* </button>
-        <button onClick={() => animatePresetOne()}> Preset 1 </button>
-        <button onClick={() => animatePresetTwo()}> Preset 2 </button>
-        <button onClick={() => animatePresetThree()}> Preset 3 </button>
+        <button onClick={() => {setSort("reset");setClicked(false); resetGrid(grid)}}> Reset Grid </button>
+        <button disabled={clicked} onClick={() => {setSort("dijkstra"); setClicked(true)}}> Dijkstra's </button>
+        <button disabled={clicked} onClick={() => {setSort("a*"); setClicked(true)}}> A* </button>
+        <button disabled={clicked} onClick={() => {animatePresetOne()}}> Preset 1 </button>
+        <button disabled={clicked} onClick={() => {animatePresetTwo()}}> Preset 2 </button>
+        <button disabled={clicked} onClick={() => {animatePresetThree()}}> Preset 3 </button>
       </div>
     </>
   );
@@ -386,38 +408,3 @@ const getNewGridWithWallToggled = (grid:any, row:any, col:any) => {
   return newGrid;
 };
 
-const getNewGridWithStartToggled = (grid:any, newRow:any, newCol:any, startPosition:number[]) => {
-  const newGrid = grid.slice();
-  const [oldRow, oldCol] = startPosition;
-  let node = newGrid[oldRow][oldCol];
-  let newNode = {
-    ...node,
-    isStart: !node.isStart,
-  };
-  newGrid[oldRow][oldCol] = newNode;
-  node = newGrid[newRow][newCol];
-  newNode = {
-    ...node,
-    isStart: !node.isStart,
-  };
-  newGrid[newRow][newCol] = newNode;
-  return newGrid;
-};
-
-const getNewGridWithFinishToggled = (grid:any, newRow:any, newCol:any, finishPosition:number[]) => {
-  const newGrid = grid.slice();
-  const [oldRow, oldCol] = finishPosition;
-  let node = newGrid[oldRow][oldCol];
-  let newNode = {
-    ...node,
-    isFinish: !node.isFinish,
-  };
-  newGrid[oldRow][oldCol] = newNode;
-  node = newGrid[newRow][newCol];
-  newNode = {
-    ...node,
-    isFinish: !node.isFinish,
-  };
-  newGrid[newRow][newCol] = newNode;
-  return newGrid;
-};

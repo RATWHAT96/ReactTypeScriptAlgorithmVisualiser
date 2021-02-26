@@ -5,7 +5,7 @@ import './SortingVisualizer.css';
 import {SortDataDisplay} from '../sortingAlgoData/SortDataDisplay';
 
 const ANIMATION_SPEED_MS = 200;
-const NUMBER_OF_ARRAY_BARS = 10;
+const NUMBER_OF_ARRAY_BARS = 6;
 const PRIMARY_COLOR = 'grey';
 const SECONDARY_COLOR = 'turquoise';
 

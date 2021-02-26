@@ -1,4 +1,4 @@
-var animations: Array<[number,number]> = [];
+var animations: Array<[number,number, number]> = [];
 
 export function getQuickSortAnimations(array: number[]): any[] {
     animations = [];
@@ -8,49 +8,83 @@ export function getQuickSortAnimations(array: number[]): any[] {
     return animations;
 }
 
-
-
 function quickSortHelper(array: number[], startIdx: number): number[]{
+    //base case
     if (array.length <= 1) {
         return array;
     }
-
     
-    var pivot = array[array.length-1];
+    let middleIdx = Math.floor((array.length-1)/2);
+    var pivot = array[middleIdx];
+
+    // higlight pivot in blue
+    animations.push([pivot, middleIdx, 1]);
+
     var leftArr = [];
     var rightArr = []; 
+    var tempPiv = 0;
     
-    for (let i = 0; i < array.length-1; i++){
-        if (array[i] < pivot){
+    // sort array by higher and lower
+    for (let i = 0; i < array.length; i++){
+        if (i == middleIdx) {
+            tempPiv = array[i];
+        } 
+        else if (array[i] < pivot){
             leftArr.push(array[i]);
         } else {
             rightArr.push(array[i]);
-        }    
+        }   
     }
 
-    var lAL = leftArr.length;
+    //highlight all the arrays 
+    for (let i = 0; i < array.length; i++){
+        if (i == middleIdx) {
+
+        } else {
+            animations.push([array[i], i, 2]);
+        }
+    }
+
+    //rewrite all pivot heights as zero
+    if(leftArr.length == 0) {
+        for (let i = middleIdx + 1; i < middleIdx + rightArr.length; i++){
+                animations.push([0, i, 4]);
+        }
+    } else if(rightArr.length == 0)  {
+        for (let i = 0; i < leftArr.length; i++){
+            animations.push([0, i, 4]);
+        }
+    } else {
+        for (let i = startIdx; i < array.length; i++){
+            if(i == middleIdx){
+
+            } else {
+                animations.push([0, i, 4]);
+            }
+        }
+    }
+
+    var lAL = leftArr.length; 
     
-    for(let i = 0; i < lAL; i++){
-        animations.push([leftArr[i], (startIdx + i)]);
-        animations.push([leftArr[i], (startIdx + i)]);
-        animations.push([leftArr[i], (startIdx + i)]);
-    }
+    animations.push([0, middleIdx, 4]);
+    animations.push([tempPiv, startIdx + lAL, 1]);
+    animations.push([tempPiv, startIdx + lAL, 4]);
 
-    if(pivot !== 0){
-        animations.push([pivot, lAL + startIdx]);
-        animations.push([pivot, lAL + startIdx]);
-        animations.push([pivot, lAL + startIdx]);
+    for(let i = 0; i < lAL; i++) {
+        animations.push([leftArr[i], (startIdx + i), 4]);
+        animations.push([leftArr[i], (startIdx + i), 3]);
     }
 
     for(let i = 0; i < rightArr.length; i++){
-        animations.push([rightArr[i], ( startIdx + lAL + 1 + i)]);
-        animations.push([rightArr[i], ( startIdx + lAL + 1 + i)]);
-        animations.push([rightArr[i], ( startIdx + lAL + 1 + i)]);
+        animations.push([rightArr[i], ( startIdx + lAL + 1 + i), 4]);
+        animations.push([rightArr[i], ( startIdx + lAL + 1 + i), 3]);
     } 
 
+    animations.push([tempPiv, startIdx + lAL, 3]);
+    
     if(lAL == 0 ){
-        return [ pivot, ...quickSortHelper(rightArr,  lAL+startIdx+1)];
+        return [tempPiv, ...quickSortHelper(rightArr,  startIdx+1)];
     } else {
-        return [...quickSortHelper(leftArr,  startIdx), pivot, ...quickSortHelper(rightArr,  lAL+startIdx+1)];
+        return [...quickSortHelper(leftArr,  startIdx), tempPiv, ...quickSortHelper(rightArr,  lAL+startIdx+1)];
     }
 }

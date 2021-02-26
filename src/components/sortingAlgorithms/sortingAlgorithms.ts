@@ -51,29 +51,33 @@ export function mergeSort(arr: number[], colorTwo: string, colorOne: string, ani
     } 
   }
 
+
 export function quickSort(arr: number[], colorTwo: string, colorOne: string, animationSpeed: number) {
     const animations = getQuickSortAnimations(arr);
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName('array-bar') as HTMLCollectionOf<HTMLElement>;
 
-      const isColorChangeOne = i % 3 == 0;
-      const isColorChangeTwo = i % 3 == 1;
-      const [newHeight, barIdx] = animations[i];
+      const [newHeight, barIdx, animationType] = animations[i];
       const barStyle = arrayBars[barIdx].style;
-      if (isColorChangeOne) {
+      
+      if (animationType == 1) {
+        setTimeout(() => {
+          barStyle.backgroundColor = 'blue';
+        }, i * animationSpeed);
+      } else if (animationType == 2) {
         setTimeout(() => {
           barStyle.backgroundColor = colorTwo;
         }, i * animationSpeed);
-      } else if (isColorChangeTwo) {
+      } else if (animationType == 3) {
+        setTimeout(() => {
+          barStyle.backgroundColor = colorOne;
+        }, i * animationSpeed);
+      } else if (animationType == 4) {
         setTimeout(() => {
           barStyle.height = `${newHeight}vh`;
           arrayBars[barIdx].innerHTML = `${newHeight}`;
         }, i * animationSpeed);
-      } else {
-        setTimeout(() => {
-          barStyle.backgroundColor = colorOne;
-        }, i * animationSpeed);
-      }
+      } 
     }
   }
 

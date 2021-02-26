@@ -161,6 +161,29 @@ export const animatePresetThree = (sNodeRow: any, sNodeCol: any, fNodeRow:any, f
         } 
       }
     }
+
+    const additionalWallNodes = [[15,3], [12,8], [10,3], [8,2], [6,3], [2,9], [4,7], [2,15], 
+                                 [5,18], [8,20], [11,21], [13,21], [12,26], [9, 27], [8,29],
+                                 [6,27], [4,23], [2,27], [2,33], [2,39], [4,41], [8,41], [10,45],
+                                 [8,47], [4,46], [10,15], [12,11], [7,12], [15,27], [13,33], 
+                                 [12,35], [7,36], [15,39], [13,45], [12,47]];
+
+    for(let i = 0; i< additionalWallNodes.length; i++){
+      const [r, c] = additionalWallNodes[i];
+      const x = gridOne[r][c];
+      x.isWall = false;
+      let y = document.getElementById(`node-${x.row}-${x.col}`);
+      y!.className = 'node'; 
+    }
+
+    const start = gridOne[15][1];
+    start.isStart = true;
+    const finish = gridOne[1][47];
+    finish.isFinish = true;
+    setSPosition([15, 1]);
+    setFPosition([1, 47]);
+
+    setGrid(gridOne);
 }
 
     

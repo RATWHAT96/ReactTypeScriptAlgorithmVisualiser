@@ -43,7 +43,7 @@ export const createNode = (col:any, row:any, sNodeRow: any, sNodeCol: any, fNode
       isStart: row === sNodeRow && col === sNodeCol,
       isFinish: row === fNodeRow && col === fNodeCol,
       distance: Infinity,
-      manhatanDistance: Infinity,
+      euclidianDistance: Infinity,
       totalCost: Infinity,
       isVisited: false,
       isWall: false,

@@ -1,8 +1,8 @@
 export function aStar(grid:any, startNode:any, finishNode:any) {
-    addManhatanDistance(grid, finishNode);
+    addEuclidianDistance(grid, finishNode);
     const visitedNodesInOrder = [];
     startNode.distance = 0;
-    startNode.totalCost = startNode.distance + startNode.manhatanDistance;
+    startNode.totalCost = startNode.distance + startNode.euclidianDistance;
     const unvisitedNodes = getAllNodes(grid);
     while (!!unvisitedNodes.length) {
       sortNodesByTotalCost(unvisitedNodes);
@@ -10,22 +10,25 @@ export function aStar(grid:any, startNode:any, finishNode:any) {
       if (closestNode.isWall) continue;
       if (closestNode.distance === Infinity) return visitedNodesInOrder;
       closestNode.isVisited = true;
+      console.log("positions " + closestNode.row + "," + closestNode.col)
+      console.log("mDis " + closestNode.euclidianDistance);
+      console.log("total cost " + closestNode.totalCost);
+      console.log(" ");
       visitedNodesInOrder.push(closestNode);
       if (closestNode === finishNode) return visitedNodesInOrder;
       updateUnvisitedNeighbors(closestNode, grid);
     }
 }
 
-function manhatanDistance(currNode: any, finishNode: any): number {
-  const manhatanDistance = Math.sqrt((Math.pow((finishNode.col-currNode.col), 2) - Math.pow((finishNode.row - currNode.row), 2)));
-  return manhatanDistance;
+function euclidianDistance(currNode: any, finishNode: any): number {
+  const euclidianDistance = Math.sqrt((Math.pow((finishNode.col-currNode.col), 2) +  Math.pow((finishNode.row - currNode.row), 2)));
+  return euclidianDistance;
 }
 
-function addManhatanDistance(grid: any, finishNode: any) {
+function addEuclidianDistance(grid: any, finishNode: any) {
   for (const row of grid) {
     for (const node of row) {
-      node.manhatanDistance = manhatanDistance(node, finishNode);
-      //console.log("mDis " + node.manhatanDistance);
+      node.euclidianDistance = euclidianDistance(node, finishNode);
     }
   }
 }
@@ -39,7 +42,7 @@ function updateUnvisitedNeighbors(node:any, grid:any) {
   const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
   for (const neighbor of unvisitedNeighbors) {
     neighbor.distance = node.distance + 1;
-    neighbor.totalCost = neighbor.distance + neighbor.manhatanDistance;
+    neighbor.totalCost = neighbor.distance + neighbor.euclidianDistance;
     neighbor.previousNode = node;
   }
 }

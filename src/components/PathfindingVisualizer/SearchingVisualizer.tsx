@@ -6,17 +6,17 @@ import {dijkstra, getNodesInShortestPathOrder} from '../searchAlgorithms/dijkstr
 import {aStar} from '../searchAlgorithms/aStar'
 import './PathfindingVisualizer.css';
 
-const START_NODE_ROW = 17;
+const START_NODE_ROW = 8;
 const START_NODE_COL = 0;
-const FINISH_NODE_ROW = 0;
-const FINISH_NODE_COL = 29;
+const FINISH_NODE_ROW = 8;
+const FINISH_NODE_COL = 48;
 
 interface nodeData{
   col: number;
   isFinish: boolean;
   isStart: boolean;
   isWall: boolean;
-  mouseIsPressed: boolean;
+  
   onMouseDown: Function;
   onMouseEnter: Function;
   onMouseUp: Function;
@@ -88,24 +88,18 @@ export const SearchingVisualizer = () => {
   }
 
   const handleMouseEnter = (row: any, col: any) => {
-    if (!mouseIsPressed) return;
+    if (mouseIsPressed == false) return;
     if(startPressed){
-      const [oldRow, oldCol] = startPosition;
-      let node = grid[oldRow][oldCol];
-      node.isStart = !node.isStart;
-      node = grid[row][col];
-      node.isStart = !node.isStart;
-      setSPosition([row, col]);
+        const newGrid = getNewGridWithStartToggled(grid, row, col, startPosition);
+        setGrid(newGrid);
+        setSPosition([row, col]);
     } else if (finishPressed){
-      const [oldRow, oldCol] = startPosition;
-      let node = grid[oldRow][oldCol];
-      node.isFinish = !node.isFinish;
-      node = grid[row][col];
-      node.isFinish = !node.isFinish;
-      setFPosition([row, col]);
+        const newGrid = getNewGridWithFinishToggled(grid, row, col, finishPosition);
+        setGrid(newGrid);
+        setFPosition([row, col]);
     } else {
-      const newGrid = getNewGridWithWallToggled(grid, row, col);
-      setGrid(newGrid);
+        const newGrid = getNewGridWithWallToggled(grid, row, col);
+        setGrid(newGrid);
     }
   }
 
@@ -165,7 +159,7 @@ export const SearchingVisualizer = () => {
                       isFinish={isFinish}
                       isStart={isStart}
                       isWall={isWall}
-                      mouseIsPressed={mouseIsPressed}
+                      
                       onMouseDown={(row:any, col:any) => handleMouseDown(row, col)}
                       onMouseEnter={(row:any, col:any) => handleMouseEnter(row, col)}
                       onMouseUp={(row:any, col:any) => handleMouseUp(row, col)}
@@ -192,9 +186,9 @@ export const SearchingVisualizer = () => {
 /*Helper function*/
 const getInitialGrid = ():any[][] => {
   const grid = [];
-  for (let row = 0; row < 18; row++) {
+  for (let row = 0; row < 17; row++) {
     const currentRow = [];
-    for (let col = 0; col <50; col++) {
+    for (let col = 0; col <49; col++) {
       currentRow.push(createNode(col, row, START_NODE_ROW, START_NODE_COL, FINISH_NODE_ROW, FINISH_NODE_COL));
     }
     grid.push(currentRow);
@@ -213,3 +207,38 @@ const getNewGridWithWallToggled = (grid:any, row:any, col:any) => {
   return newGrid;
 };
 
+const getNewGridWithStartToggled = (grid:any, newRow:any, newCol:any, startPosition:number[]) => {
+  const newGrid = grid.slice();
+  const [oldRow, oldCol] = startPosition;
+  let node = newGrid[oldRow][oldCol];
+  let newNode = {
+    ...node,
+    isStart: !node.isStart,
+  };
+  newGrid[oldRow][oldCol] = newNode;
+  node = newGrid[newRow][newCol];
+  newNode = {
+    ...node,
+    isStart: !node.isStart,
+  };
+  newGrid[newRow][newCol] = newNode;
+  return newGrid;
+};
+
+const getNewGridWithFinishToggled = (grid:any, newRow:any, newCol:any, finishPosition:number[]) => {
+  const newGrid = grid.slice();
+  const [oldRow, oldCol] = finishPosition;
+  let node = newGrid[oldRow][oldCol];
+  let newNode = {
+    ...node,
+    isFinish: !node.isFinish,
+  };
+  newGrid[oldRow][oldCol] = newNode;
+  node = newGrid[newRow][newCol];
+  newNode = {
+    ...node,
+    isFinish: !node.isFinish,
+  };
+  newGrid[newRow][newCol] = newNode;
+  return newGrid;
+};

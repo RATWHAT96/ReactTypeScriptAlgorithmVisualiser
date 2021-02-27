@@ -5,7 +5,7 @@ interface nodeData{
   isFinish: boolean;
   isStart: boolean;
   isWall: boolean;
-  mouseIsPressed: boolean;
+  
   onMouseDown: Function;
   onMouseEnter: Function;
   onMouseUp: Function;

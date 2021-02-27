@@ -13,12 +13,16 @@ function quickSortHelper(array: number[], startIdx: number): number[]{
     if (array.length <= 1) {
         return array;
     }
+
+    console.log("startIdx " + startIdx);
     
     let middleIdx = Math.floor((array.length-1)/2);
     var pivot = array[middleIdx];
 
+    console.log("middleIdx " + middleIdx);
+
     // higlight pivot in blue
-    animations.push([pivot, middleIdx, 1]);
+    animations.push([pivot, startIdx+middleIdx, 1]);
 
     var leftArr = [];
     var rightArr = []; 
@@ -35,38 +39,31 @@ function quickSortHelper(array: number[], startIdx: number): number[]{
             rightArr.push(array[i]);
         }   
     }
+    console.log("tempPiv " + tempPiv);
+    console.log("LLength " + leftArr.length);
+    console.log("RLength " + rightArr.length);
 
     //highlight all the arrays 
-    for (let i = 0; i < array.length; i++){
-        if (i == middleIdx) {
+    for (let i = startIdx; i < (startIdx + array.length); i++){
+        if(i == (startIdx + middleIdx)){
 
         } else {
             animations.push([array[i], i, 2]);
         }
     }
-
+    
     //rewrite all pivot heights as zero
-    if(leftArr.length == 0) {
-        for (let i = middleIdx + 1; i < middleIdx + rightArr.length; i++){
-                animations.push([0, i, 4]);
-        }
-    } else if(rightArr.length == 0)  {
-        for (let i = 0; i < leftArr.length; i++){
+    for (let i = startIdx; i < (startIdx + array.length); i++){
+        if(i == (startIdx+middleIdx)){
+
+        } else {
             animations.push([0, i, 4]);
         }
-    } else {
-        for (let i = startIdx; i < array.length; i++){
-            if(i == middleIdx){
-
-            } else {
-                animations.push([0, i, 4]);
-            }
-        }
     }
-
+    
     var lAL = leftArr.length; 
     
-    animations.push([0, middleIdx, 4]);
+    animations.push([0, startIdx + middleIdx, 4]);
     animations.push([tempPiv, startIdx + lAL, 1]);
     animations.push([tempPiv, startIdx + lAL, 4]);
 
@@ -82,9 +79,7 @@ function quickSortHelper(array: number[], startIdx: number): number[]{
 
     animations.push([tempPiv, startIdx + lAL, 3]);
     
-    if(lAL == 0 ){
-        return [tempPiv, ...quickSortHelper(rightArr,  startIdx+1)];
-    } else {
-        return [...quickSortHelper(leftArr,  startIdx), tempPiv, ...quickSortHelper(rightArr,  lAL+startIdx+1)];
-    }
+   
+
+    return [...quickSortHelper(leftArr,  startIdx), tempPiv, ...quickSortHelper(rightArr,  lAL+startIdx+1)];
 }

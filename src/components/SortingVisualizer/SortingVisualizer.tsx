@@ -3,6 +3,7 @@ import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
 import { generateArray, generateArrayWithNums, mergeSort, quickSort, bubbleSort, selectionSort } from '../sortingAlgorithms/sortingAlgorithms';
 import './SortingVisualizer.css';
 import {SortDataDisplay} from '../algoDataDisplay/SortDataDisplay';
+import {SortDataOne, SortDataTwo, SortDataThree, SortDataFour} from '../algoDataDisplay/SortDisplayData'
 
 const ANIMATION_SPEED_MS = 200;
 const NUMBER_OF_ARRAY_BARS = 10;
@@ -80,10 +81,10 @@ export const SortingVisualizer = () => {
       </div>
       <div className="algoInfoBox">
           <Switch>
-            <Route path="/mergeSort" component={() => <SortDataDisplay name="Merge Sort" bestCase = 'n * log(n)' averageCase = 'n * log(n)' worstCase = 'n * log(n)' space = 'n'/>}/>
-            <Route path="/quickSort" component={() => <SortDataDisplay name="Quick Sort" bestCase = 'n * log(n)' averageCase = 'n * log(n)' worstCase = 'n ^ 2' space = 'log(n)'/>} />
-            <Route path="/bubbleSort" component={() => <SortDataDisplay name="Bubble Sort" bestCase = 'n' averageCase = 'n ^ 2' worstCase = 'n ^ 2' space = '1'/>} />
-            <Route path="/selectionSort" component={() => <SortDataDisplay name="Selection Sort" bestCase = 'n ^ 2' averageCase = 'n ^ 2' worstCase = 'n ^ 2' space = '1'/>} />
+            <Route path="/mergeSort" component={() => <SortDataDisplay name={SortDataOne.name} description={SortDataOne.description} bestCase = {SortDataOne.bestCase} averageCase = {SortDataOne.averageCase} worstCase = {SortDataOne.worstCase} space = {SortDataOne.space} />}/>
+            <Route path="/quickSort" component={() => <SortDataDisplay name={SortDataTwo.name} description={SortDataTwo.description} bestCase = {SortDataTwo.bestCase} averageCase = {SortDataTwo.averageCase} worstCase = {SortDataTwo.worstCase} space = {SortDataTwo.space}  />}/>
+            <Route path="/bubbleSort" component={() => <SortDataDisplay name={SortDataThree.name} description={SortDataThree.description} bestCase = {SortDataThree.bestCase} averageCase = {SortDataThree.averageCase} worstCase = {SortDataThree.worstCase} space = {SortDataThree.space}  />}/>
+            <Route path="/selectionSort" component={() => <SortDataDisplay name={SortDataFour.name} description={SortDataFour.description} bestCase = {SortDataFour.bestCase} averageCase = {SortDataFour.averageCase} worstCase = {SortDataFour.worstCase} space = {SortDataFour.space}  />}/>
           </Switch>
       </div>
     </div>

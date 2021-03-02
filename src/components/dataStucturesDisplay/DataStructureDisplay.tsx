@@ -1,6 +1,7 @@
 export interface dataStructureData {
     name: string;
     image: string;
+    display: string;
     description: string;
     averageAccess: string;
     averageSearch: string;
@@ -10,11 +11,11 @@ export interface dataStructureData {
     worstInsertDelete: string;
 }
 
-export function DataStructureDisplay(props:any) {
+export function DataStructureDisplay(props:dataStructureData) {
 
     return(
         <>  
-            <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+            <div style={{display:"flex", justifyContent:"center", alignItems:"center", marginTop:"5vw"}}>
                 <h1 style={{fontSize:"3vw", marginTop:"0"}}>{props.name}</h1>
             </div>
             <div style={{display:"flex", justifyContent:"center", alignItems:"center", margin:"5vh 0"}}>
@@ -41,9 +42,8 @@ export function DataStructureDisplay(props:any) {
             </div>      
             <div style={{width:"100vw", display:"flex", justifyContent:"center", alignItems:"center", flexFlow:"column"}}>
                 <p style={{fontSize:"2vw", width:"80vw", textAlign:"start"}}>{props.description}</p>
-                <img style={{width:"70vw", height:"35vw"}} src={props.image}></img>
+                <img style={{width:"70vw", height:"35vw", display:props.display}} src={props.image}></img>
             </div>
-                  
         </>
     );
 }

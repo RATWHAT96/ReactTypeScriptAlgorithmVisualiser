@@ -15,7 +15,7 @@ export function DataStructureDisplay(props:dataStructureData) {
 
     return(
         <>  
-            <div style={{display:"flex", justifyContent:"center", alignItems:"center", marginTop:"5vw"}}>
+            <div style={{display:"flex", justifyContent:"center", alignItems:"center", marginTop:"2vw"}}>
                 <h1 style={{fontSize:"3vw", marginTop:"0"}}>{props.name}</h1>
             </div>
             <div style={{display:"flex", justifyContent:"center", alignItems:"center", margin:"5vh 0"}}>

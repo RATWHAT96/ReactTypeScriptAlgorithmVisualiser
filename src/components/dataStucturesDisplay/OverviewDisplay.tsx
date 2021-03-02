@@ -2,7 +2,7 @@ export function OverviewDisplay() {
 
     return(
         <>  
-            <div style={{display:"flex", flexFlow:"column", justifyContent:"center", alignItems:"center", marginTop:"5vw"}}>
+            <div style={{display:"flex", flexFlow:"column", justifyContent:"center", alignItems:"center", marginTop:"2vw"}}>
             <div style={{width:"100vw", display:"flex", justifyContent:"center", alignItems:"center", flexFlow:"column"}}>
                 <h1 style={{fontSize:"3vw", marginTop:"0", textAlign:"start"}}>Overview</h1>
                     <p style={{fontSize:"2vw", width:"80vw", textAlign:"start", marginTop:"2vw"}}>

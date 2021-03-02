@@ -3,8 +3,11 @@ import {Node} from './Node/Node';
 import './Node/Node.css';
 import {animate, createNode, animatePresetOne, animatePresetTwo, animatePresetThree} from './AnimateFunctions';
 import {dijkstra, getNodesInShortestPathOrder} from '../searchAlgorithms/dijkstra';
-import {aStar} from '../searchAlgorithms/aStar'
+import {aStar} from '../searchAlgorithms/aStar';
+import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
 import './PathfindingVisualizer.css';
+import {PathDataDisplay} from './PathFindingDataDisplay';
+import {pathDataOne, pathDataTwo} from './PathFindingDisplayData'
 
 const START_NODE_ROW = 8;
 const START_NODE_COL = 0;
@@ -131,6 +134,7 @@ export const SearchingVisualizer = () => {
 
   return (
     <>
+    <Router>
       <div className="buttonbar">
         <div className="key">
           <p>Start Node</p>
@@ -173,12 +177,19 @@ export const SearchingVisualizer = () => {
       </div>
       <div className="buttonbar">
         <button onClick={() => {setSort("reset");setClicked(false); resetGrid(grid)}}> Reset Grid </button>
-        <button disabled={clicked} onClick={() => {setSort("dijkstra"); setClicked(true)}}> Dijkstra's </button>
-        <button disabled={clicked} onClick={() => {setSort("a*"); setClicked(true)}}> A* </button>
+        <Link to="/dijkstra" style={{ textDecoration: 'none', color: 'white' }}><button disabled={clicked} onClick={() => {setSort("dijkstra"); setClicked(true)}}> Dijkstra's </button></Link>
+        <Link to="/astar" style={{ textDecoration: 'none', color: 'white' }}><button disabled={clicked} onClick={() => {setSort("a*"); setClicked(true)}}> A* </button></Link>
         <button disabled={clicked} onClick={() => {animatePresetOne(START_NODE_ROW, START_NODE_COL, FINISH_NODE_ROW, FINISH_NODE_COL, setSPosition, setFPosition, setGrid)}}> Preset 1 </button>
         <button disabled={clicked} onClick={() => {animatePresetTwo(START_NODE_ROW, START_NODE_COL, FINISH_NODE_ROW, FINISH_NODE_COL, setSPosition, setFPosition, setGrid)}}> Preset 2 </button>
         <button disabled={clicked} onClick={() => {animatePresetThree(START_NODE_ROW, START_NODE_COL, FINISH_NODE_ROW, FINISH_NODE_COL, setSPosition, setFPosition, setGrid)}}> Preset 3 </button>
       </div>
+      <div className="algoInfoBox">
+          <Switch>
+            <Route path="/dijkstra" component={() => <PathDataDisplay name={pathDataOne.name} description={pathDataOne.description} descripOne={pathDataOne.descripOne} descripTwo={pathDataOne.descripTwo} descripThree={pathDataOne.descripThree} descripFour={pathDataOne.descripFour} descripFive={pathDataOne.descripFive} descripSix={pathDataOne.descripSix} descripSeven={pathDataOne.descripSeven} displayPoint={pathDataOne.displayPoint} image={pathDataOne.image} display={pathDataOne.display} />}/>
+            <Route path="/astar" component={() => <PathDataDisplay name={pathDataTwo.name} description={pathDataTwo.description} descripOne={pathDataTwo.descripOne} descripTwo={pathDataTwo.descripTwo} descripThree={pathDataTwo.descripThree} descripFour={pathDataTwo.descripFour} descripFive={pathDataTwo.descripFive} descripSix={pathDataTwo.descripSix} descripSeven={pathDataTwo.descripSeven} displayPoint={pathDataTwo.displayPoint} image={pathDataTwo.image} display={pathDataTwo.display} />}/>
+          </Switch>
+      </div> 
+    </Router>
     </>
   );
 }
